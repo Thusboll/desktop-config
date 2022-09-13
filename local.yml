@@ -17,5 +17,6 @@
       when: ansible_distribution in ["Debian", "Ubuntu"]
 
   tasks:
+    - include: tasks/zsh.yml
     - include: tasks/users.yml
     - include: tasks/cron.yml
