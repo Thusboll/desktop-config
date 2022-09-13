@@ -1,0 +1,23 @@
+- name: install zsh
+  package:
+    name: zsh
+
+- name: set zsh as shell
+  become_user: tue
+  shell: chsh -s $(which zsh)
+
+- name: install oh-my-zsh
+  become_user: tue
+  shell: git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+
+- name: copy zshrc file
+  become_user: tue
+  copy: srs=files/zshrc dest=/home/tue/.zshrc
+  owner: tue
+  group: tue
+
+- name: copy powerlevel10k file
+  become_user: tue
+  copy: srs=files/p10k dest=/home/tue/.p10k.zsh
+  owner: tue
+  group: tue
