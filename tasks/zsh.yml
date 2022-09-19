@@ -1,5 +1,7 @@
 - name: set zsh as shell
-  user: name=tue shell=/usr/bin/zsh
+  user: 
+    name: tue
+    shell: /usr/bin/zsh
 
 - name: check if oh-my-zsh installer exists
   stat:
