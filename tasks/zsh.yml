@@ -19,6 +19,7 @@
   register: oh_my_zsh
 
 - name: install oh-my-zsh
+  become_user: tue
   script: 
     cmd: /tmp/ohmyzsh_install.sh
   when: oh_my_zsh.stat.exists == false
