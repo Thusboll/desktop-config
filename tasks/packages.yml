@@ -7,3 +7,12 @@
     - firefox
     - vim
     - zsh
+    - mesa
+    - xf86-video-amdgpu
+    - lib32-mesa
+    - vulkan-radeon
+    - lib32-vulkan-radeon
+    - vulkan-icd-loader
+    - lib32-vulkan-icd-loader
+    - steam
+    - lutris
