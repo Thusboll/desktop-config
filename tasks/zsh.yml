@@ -1,19 +1,31 @@
 - name: set zsh as shell
   user: name=tue shell=/usr/bin/zsh
 
+- name: check if oh-my-zsh installer exists
+  stat:
+    path: /tmp/ohmyzsh_install.sh
+  register: oh_my_zsh
+
 - name: download oh-my-zsh
   get_url: 
     url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
     dest: /tmp/ohmyzsh_install.sh
     checksum: sha256:6959f68fc0a4e2ac5bf55895f4ab4d9df3adb8675f1cdbc25a8dc224f074083f
+  when: oh_my_zsh.stat.exists == false
 
 - name: install oh-my-zsh
   script: 
     cmd: /tmp/ohmyzsh_install.sh
+  when: oh_my_zsh.stat.exists == true
+
+- name: check if powerlevel10k exists
+  stat:
+    path: ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  register: p10k
 
 - name: install powerlevel10k
-  become_user: tue
   shell: git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  when: p10k.stat.exists == false
 
 - name: copy zshrc file
   copy: src=files/zshrc dest=/home/tue/.zshrc owner=tue group=tue
