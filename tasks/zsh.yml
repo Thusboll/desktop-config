@@ -1,7 +1,17 @@
 - name: set zsh as shell
   user: name=tue shell=/usr/bin/zsh
 
+- name: download oh-my-zsh
+  get_url: 
+    url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    dest: /tmp/ohmyzsh_install.sh
+    checksum: sha256:6959f68fc0a4e2ac5bf55895f4ab4d9df3adb8675f1cdbc25a8dc224f074083f
+
 - name: install oh-my-zsh
+  script: 
+    cmd: /tmp/ohmyzsh_install.sh
+
+- name: install powerlevel10k
   become_user: tue
   shell: git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
