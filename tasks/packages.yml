@@ -1,0 +1,9 @@
+- name: install packages
+  package:
+    name:
+    # - cronie
+    - code
+    - chromium
+    - firefox
+    - vim
+    - zsh

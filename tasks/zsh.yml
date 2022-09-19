@@ -1,10 +1,5 @@
-- name: install zsh
-  package:
-    name: zsh
-
 - name: set zsh as shell
-  become_user: tue
-  shell: chsh -s $(which zsh)
+  user: name=tue shell=/usr/bin/zsh
 
 - name: install oh-my-zsh
   become_user: tue
