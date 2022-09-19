@@ -15,7 +15,7 @@
 
 - name: check if oh-my-zsh exists
   stat:
-    path: ${ZSH_CUSTOM:-$HOME/.oh-my-zsh}
+    path: /home/tue/.oh-my.zsh
   register: oh_my_zsh
 
 - name: install oh-my-zsh
@@ -30,7 +30,7 @@
   register: p10k
 
 - name: install powerlevel10k
-  shell: git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  shell: git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /home/tue/.oh-my-zsh/custom/themes/powerlevel10k
   when: p10k.stat.exists == false
 
 - name: copy zshrc file
