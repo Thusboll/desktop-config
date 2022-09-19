@@ -11,27 +11,27 @@
     url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
     dest: /tmp/ohmyzsh_install.sh
     checksum: sha256:6959f68fc0a4e2ac5bf55895f4ab4d9df3adb8675f1cdbc25a8dc224f074083f
-  when: oh_my_zsh_installer.stat.exists == false
+  when: not oh_my_zsh_installer.stat.exists
 
 - name: check if oh-my-zsh exists
   stat:
-    path: ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/}
+    path: /home/tue/.oh-my-zsh/
   register: oh_my_zsh
 
 - name: install oh-my-zsh
   become_user: tue
   script: 
     cmd: /tmp/ohmyzsh_install.sh
-  when: oh_my_zsh.stat.exists == false
+  when: not oh_my_zsh.stat.exists
 
 - name: check if powerlevel10k exists
   stat:
-    path: ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+    path: /home/tue/.oh-my-zsh/custom/themes/powerlevel10k/
   register: p10k
 
 - name: install powerlevel10k
-  shell: git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-  when: p10k.stat.exists == false
+  shell: git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /home/tue/.oh-my-zsh/custom/themes/powerlevel10k
+  when: not p10k.stat.exists
 
 - name: copy zshrc file
   copy: src=files/zshrc dest=/home/tue/.zshrc owner=tue group=tue
